@@ -19,10 +19,8 @@ function Header() {
 
 function App() {
   return (
-    <div className="App">
+    <div className="App-background">
       <Header />
-      <section className='h-full'>
-      </section>
     </div>
   );
 }

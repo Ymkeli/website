@@ -1,28 +1,56 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { useEffect, useState } from 'react';
+import ReactMarkdown from 'react-markdown';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faLinkedin, faGithub } from '@fortawesome/free-brands-svg-icons';
 import './App.css';
+import Header from './Header'
 
-function Header() {
+function Icons() {
   return (
-    <header className="App-header">
-      <div className='flex flex-row px-5'>
-        <h1>Ymke Wegereef</h1>
-      </div>
-      <div className='flex flex-row space-x-5 px-5'>
-        <h1>Home</h1>
-        <h1>About</h1>
-        <h1>Portfolio</h1>
-      </div>
-    </header>
+    <div className='flex justify-end space-x-5 p-5'>
+      {/* LinkedIn Icon */}
+      <FontAwesomeIcon icon={faLinkedin} size="2x" />
+
+      {/* GitHub Icon */}
+      <FontAwesomeIcon icon={faGithub} size="2x" />
+    </div>
   )
 }
 
-function App() {
+const App: React.FC = () => {
+  const [content, setContent] = useState<string>('');
+
+  useEffect(() => {
+    fetch('/intro.md')
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        return response.text();
+      })
+      .then((text) => {
+        setContent(text);
+      })
+      .catch((error) => {
+        console.error('Error fetching the intro.md markdown file:', error);
+      });
+  }, []);
+
   return (
     <div className="App-background">
       <Header />
-    </div>
+      <section className='flex flex-col justify-end min-h-screen'>
+        <div className= 'bg-white'>
+          <div className='flex justify-center'>
+            <ReactMarkdown className='color-black w-7/12 mt-10'>
+              {content}
+            </ReactMarkdown>
+          </div>
+          <Icons />
+        </div>
+      </section >
+    </div >
   );
-}
+};
 
 export default App;

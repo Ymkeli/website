@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import ReactMarkdown from 'react-markdown';
+import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faLinkedin, faGithub } from '@fortawesome/free-brands-svg-icons';
 import './App.css';
-import Header from './Header'
+import Header from './Header';
 
 function Icons() {
   return (
@@ -17,7 +18,7 @@ function Icons() {
   )
 }
 
-const App: React.FC = () => {
+function Home() {
   const [content, setContent] = useState<string>('');
 
   useEffect(() => {
@@ -37,18 +38,51 @@ const App: React.FC = () => {
   }, []);
 
   return (
+    <ReactMarkdown className='color-black w-7/12 mt-10'>
+      {content}
+    </ReactMarkdown>
+  )
+}
+
+function About() {
+  return (
+    <div></div>
+  )
+}
+
+function Contact() {
+  return (
+    <div></div>
+  )
+}
+
+const App: React.FC = () => {
+  // Define the links for the navigation bar
+  const navLinks = [
+    { name: 'Home', path: '/' },
+    { name: 'About', path: '/about' },
+    { name: 'Contact', path: '/contact' },
+  ];
+
+  return (
     <div className="App-background">
-      <Header />
-      <section className='flex flex-col justify-end min-h-screen'>
-        <div className= 'bg-white'>
-          <div className='flex justify-center'>
-            <ReactMarkdown className='color-black w-7/12 mt-10'>
-              {content}
-            </ReactMarkdown>
+      <Router>
+        <Header links={navLinks} />
+
+        <section className='flex flex-col justify-end min-h-screen'>
+          <div className='bg-white'>
+            <div className='flex justify-center'>
+              <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/about" element={<About />} />
+                <Route path="/contact" element={<Contact />} />
+              </Routes>
+            </div>
+            <Icons />
           </div>
-          <Icons />
-        </div>
-      </section >
+        </section >
+      </Router>
+
     </div >
   );
 };

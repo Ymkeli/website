@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from 'react';
-import ReactMarkdown from 'react-markdown';
-import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
+import React from 'react';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faLinkedin, faGithub } from '@fortawesome/free-brands-svg-icons';
 import './App.css';
 import Header from './Header';
+import Content from './Content';
 
 function Icons() {
   return (
@@ -15,32 +15,6 @@ function Icons() {
       {/* GitHub Icon */}
       <FontAwesomeIcon icon={faGithub} size="2x" />
     </div>
-  )
-}
-
-function Home() {
-  const [content, setContent] = useState<string>('');
-
-  useEffect(() => {
-    fetch('/intro.md')
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        return response.text();
-      })
-      .then((text) => {
-        setContent(text);
-      })
-      .catch((error) => {
-        console.error('Error fetching the intro.md markdown file:', error);
-      });
-  }, []);
-
-  return (
-    <ReactMarkdown className='color-black w-7/12 mt-10'>
-      {content}
-    </ReactMarkdown>
   )
 }
 
@@ -57,7 +31,7 @@ function Contact() {
 }
 
 const App: React.FC = () => {
-  // Define the links for the navigation bar
+  // Links for the navigation bar
   const navLinks = [
     { name: 'Home', path: '/' },
     { name: 'About', path: '/about' },
@@ -67,17 +41,24 @@ const App: React.FC = () => {
   return (
     <div className="App-background">
       <Router>
+        {/* Header */}
         <Header links={navLinks} />
 
+        {/* Content */}
         <section className='flex flex-col justify-end min-h-screen'>
           <div className='bg-white'>
             <div className='flex justify-center'>
               <Routes>
-                <Route path="/" element={<Home />} />
+                {/* Home */}
+                <Route path="/" element={<Content filePath='./intro.md' />} />
+                {/* About */}
                 <Route path="/about" element={<About />} />
+                {/* Contact*/}
                 <Route path="/contact" element={<Contact />} />
               </Routes>
             </div>
+
+            {/* Icons */}
             <Icons />
           </div>
         </section >

@@ -1,10 +1,11 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { BrowserRouter as Router, useLocation } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faLinkedin, faGithub } from '@fortawesome/free-brands-svg-icons';
 import './App.css';
 import Header from './Header';
-import Content from './Content';
+import Home from './Home';
+import About from './About';
 
 function Icons() {
   return (
@@ -18,17 +19,39 @@ function Icons() {
   )
 }
 
-function About() {
-  return (
-    <div></div>
-  )
-}
-
 function Contact() {
   return (
     <div></div>
   )
 }
+
+const MainContent: React.FC = () => {
+  const location = useLocation();
+
+  // Determine visibility based on the current route
+  const isHome = location.pathname === "/";
+  const isAbout = location.pathname === "/about";
+  const isContact = location.pathname === "/contact";
+
+  return (
+    <section>
+      {/* Home */}
+      <div style={{ display: isHome ? 'block' : 'none' }}>
+        <Home />
+      </div>
+
+      {/* About */}
+      <div style={{ display: isAbout ? 'block' : 'none' }}>
+        <About />
+      </div>
+
+      {/* Contact */}
+      <div style={{ display: isContact ? 'block' : 'none' }}>
+        <Contact />
+      </div>
+    </section >
+  );
+};
 
 const App: React.FC = () => {
   // Links for the navigation bar
@@ -46,24 +69,14 @@ const App: React.FC = () => {
 
         {/* Content */}
         <section className='flex flex-col justify-end min-h-screen'>
-          <div className='bg-white'>
-            <div className='flex justify-center'>
-              <Routes>
-                {/* Home */}
-                <Route path="/" element={<Content filePath='./intro.md' />} />
-                {/* About */}
-                <Route path="/about" element={<About />} />
-                {/* Contact*/}
-                <Route path="/contact" element={<Contact />} />
-              </Routes>
-            </div>
+          <div className='bg-white h-8/12 min-w-screen'>
+            <MainContent />
 
             {/* Icons */}
             <Icons />
           </div>
         </section >
       </Router>
-
     </div >
   );
 };

@@ -1,0 +1,1 @@
+From stunning user interfaces to powerful backend systems, I bring all the pieces together to create seamless web applications. Whether it's building responsive and intuitive interfaces with CSS and TypeScript, or developing robust backend solutions with Python, I ensure all components work together harmoniously to create a polished final product.

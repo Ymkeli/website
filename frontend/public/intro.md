@@ -1,3 +1,1 @@
-Hi, I’m Ymke, a full stack developer with a passion for building beautiful web applications. With an eye for design and a knack for problem-solving, I bring both creativity and precision to every project. I’m analytical, open-minded, and always up for a new adventure, whether it’s tackling complex challenges or exploring innovative ideas.
-
-Feel free to explore my work, and let’s create something extraordinary together!
+I craft digital experiences that blend beauty with purpose. As a full-stack developer, I transform complex challenges into elegant, user-friendly solutions that make a real difference for businesses and their users. With an eye for design and a knack for problem-solving, I bring both creativity and precision to every project. I’m analytical, open-minded, and always up for a new adventure, whether it’s tackling complex challenges or exploring innovative ideas.
